@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>自定义网页右键菜单</title>
     <style>
-        body {
+        body,
+        div {
             margin: 0px;
             padding: 0px;
         }
@@ -19,15 +20,28 @@
             margin: 0px;
             padding: 0px;
             position: absolute;
-            width: 86;
-            height: 68;
+            width: 100;
+            height: 72;
             background: red;
+            border-radius: 4px;
+        }
+        
+        .btn {
+            width: 98px;
+            height: 24px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c0c0c0;
         }
         
         #mian {
             background: #CCCCCC;
             width: 800px;
-            height: 400px
+            height: 400px;
+            border-radius: 20px;
         }
     </style>
 </head>
@@ -39,22 +53,20 @@
     </div>
 
     <div id="BodyRHDiv">
-        <ul>
-            <li><button>第一个选项</button></li>
-            <li><button>第二个选项</button></li>
-            <li><button>第三个选项</button></li>
-        </ul>
+        <div class="btn">第一个选项</div>
+        <div class="btn">第二个选项</div>
+        <div class="btn">第三个选项</div>
     </div>
 
     <script type="text/javascript">
         (function () {
 
             //先获取预先制作的右键弹出div的模型，如果特殊，就使用js做
-            var eBodyRHDiv = document.getElementById('BodyRHDiv')
+            var menu = document.getElementById('BodyRHDiv')
             var eMain = document.getElementById('mian')
-            
+
             //先取消在弹出菜单上的右键默认行为
-            eBodyRHDiv.oncontextmenu = function (event) {
+            menu.oncontextmenu = function (event) {
                 var event = event || window.event
                 event.preventDefault()
             }
@@ -62,11 +74,11 @@
             eMain.oncontextmenu = function (event) {
                 var event = event || window.event
                 //取消默认行为
-                event.preventDefault()   
+                event.preventDefault()
 
                 //获得弹出菜单width和heigth.因为可能动态大小所以每次都获取
-                var hRH = eBodyRHDiv.offsetHeight
-                var wRH = eBodyRHDiv.offsetWidth
+                var hRH = menu.offsetHeight
+                var wRH = menu.offsetWidth
 
                 //获得点击时鼠标的XY,相对于视口
                 var mX = event.clientX
@@ -84,16 +96,16 @@
 
                 //确定弹出位置
                 if ((mX + wRH) >= clientW) {
-                    eBodyRHDiv.style.left = (mX - wRH) + 'px'
+                    menu.style.left = (mX - wRH) + 'px'
                 } else {
-                    eBodyRHDiv.style.left = mX + 'px'
+                    menu.style.left = mX + 'px'
                 }
                 if ((mY + hRH) >= clientH) {
-                    eBodyRHDiv.style.top = (mY - hRH) + 'px'
+                    menu.style.top = (mY - hRH) + 'px'
                 } else {
-                    eBodyRHDiv.style.top = mY + 'px'
+                    menu.style.top = mY + 'px'
                 }
-                eBodyRHDiv.style.visibility = 'visible'
+                menu.style.visibility = 'visible'
             }
 
 
@@ -105,22 +117,22 @@
                 var event = event || window.event
 
                 //获得弹出菜单width和heigth.因为可能动态大小所以每次都获取
-                var hRH = eBodyRHDiv.offsetHeight
-                var wRH = eBodyRHDiv.offsetWidth
+                var hRH = menu.offsetHeight
+                var wRH = menu.offsetWidth
 
                 //获得点击时鼠标的XY,相对于视口
                 var mX = event.clientX
                 var mY = event.clientY
 
                 //获取菜单的长宽
-                var divL = parseInt(eBodyRHDiv.style.left)
-                var divT = parseInt(eBodyRHDiv.style.top)
+                var divL = parseInt(menu.style.left)
+                var divT = parseInt(menu.style.top)
 
                 //是否可以隐藏
                 var canHid = (mX <= divL) || mX >= (divL + wRH) || mY <= divT || mY >= (divT + hRH)
 
                 if (canHid) {
-                    eBodyRHDiv.style.visibility = 'hidden'
+                    menu.style.visibility = 'hidden'
                 }
             }
         })()
