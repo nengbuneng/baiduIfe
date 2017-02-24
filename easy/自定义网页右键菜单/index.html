@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自定义网页右键菜单</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        li {
+            list-style: none
+        }
+        
+        #BodyRHDiv {
+            visibility: hidden;
+            margin: 0px;
+            padding: 0px;
+            position: absolute;
+            width: 86;
+            height: 68;
+            background: red;
+        }
+        
+        #mian {
+            background: #CCCCCC;
+            width: 800px;
+            height: 400px
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="mian">
+
+    </div>
+
+    <div id="BodyRHDiv">
+        <ul>
+            <li><button>第一个选项</button></li>
+            <li><button>第二个选项</button></li>
+            <li><button>第三个选项</button></li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        (function () {
+
+            //先获取预先制作的右键弹出div的模型，如果特殊，就使用js做
+            var eBodyRHDiv = document.getElementById('BodyRHDiv')
+            var eMain = document.getElementById('mian')
+            
+            //先取消在弹出菜单上的右键默认行为
+            eBodyRHDiv.oncontextmenu = function (event) {
+                var event = event || window.event
+                event.preventDefault()
+            }
+
+            eMain.oncontextmenu = function (event) {
+                var event = event || window.event
+                //取消默认行为
+                event.preventDefault()   
+
+                //获得弹出菜单width和heigth.因为可能动态大小所以每次都获取
+                var hRH = eBodyRHDiv.offsetHeight
+                var wRH = eBodyRHDiv.offsetWidth
+
+                //获得点击时鼠标的XY,相对于视口
+                var mX = event.clientX
+                var mY = event.clientY
+
+                //获得背景div 宽高
+                var eMainW = eMain.style.offsetWidth
+                var eMainH = eMain.style.offsetHeight
+
+                //获得视口的大小
+                //这里不知道为什么，window.innerWidth时，div自己变化宽度
+                //document.body.clientHeight时，视口的高度总是背景的高度
+                var clientH = window.innerHeight
+                var clientW = document.body.clientWidth
+
+                //确定弹出位置
+                if ((mX + wRH) >= clientW) {
+                    eBodyRHDiv.style.left = (mX - wRH) + 'px'
+                } else {
+                    eBodyRHDiv.style.left = mX + 'px'
+                }
+                if ((mY + hRH) >= clientH) {
+                    eBodyRHDiv.style.top = (mY - hRH) + 'px'
+                } else {
+                    eBodyRHDiv.style.top = mY + 'px'
+                }
+                eBodyRHDiv.style.visibility = 'visible'
+            }
+
+
+
+            var eBody = document.getElementsByTagName('body')[0]
+            //利用冒泡
+            eBody.onclick = function hidRH(event) {
+
+                var event = event || window.event
+
+                //获得弹出菜单width和heigth.因为可能动态大小所以每次都获取
+                var hRH = eBodyRHDiv.offsetHeight
+                var wRH = eBodyRHDiv.offsetWidth
+
+                //获得点击时鼠标的XY,相对于视口
+                var mX = event.clientX
+                var mY = event.clientY
+
+                //获取菜单的长宽
+                var divL = parseInt(eBodyRHDiv.style.left)
+                var divT = parseInt(eBodyRHDiv.style.top)
+
+                //是否可以隐藏
+                var canHid = (mX <= divL) || mX >= (divL + wRH) || mY <= divT || mY >= (divT + hRH)
+
+                if (canHid) {
+                    eBodyRHDiv.style.visibility = 'hidden'
+                }
+            }
+        })()
+    </script>
+</body>
+
+</html>
