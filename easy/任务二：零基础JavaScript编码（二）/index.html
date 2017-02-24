@@ -33,21 +33,23 @@
             */
 
             //排序函数
-            function bubbleSort(arr) {
-                var i = arr.length, j;
-                var tempExchangVal;
-                while (i > 0) {
-                    for (j = 0; j < i - 1; j++) {
-                        if (arr[j][1] < arr[j + 1][1]) {
-                            tempExchangVal = arr[j];
-                            arr[j] = arr[j + 1];
-                            arr[j + 1] = tempExchangVal;
-                        }
-                    }
-                    i--;
-                }
-                return arr;
-            }
+            // function bubbleSort(arr) {
+            //     var i = arr.length, j;
+            //     var tempExchangVal;
+            //     while (i > 0) {
+            //         for (j = 0; j < i - 1; j++) {
+            //             if (arr[j][1] < arr[j + 1][1]) {
+            //                 tempExchangVal = arr[j];
+            //                 arr[j] = arr[j + 1];
+            //                 arr[j + 1] = tempExchangVal;
+            //             }
+            //         }
+            //         i--;
+            //     }
+            //     return arr;
+            // }
+
+            //
 
             //获取元素
             var eUl = document.getElementById('aqi-list')
@@ -62,7 +64,10 @@
                 }
             }
             //排序
-            bubbleSort(arr)
+            // bubbleSort(arr)
+            arr.sort(function(a,b){
+                return b[1] - a[1];
+            })
 
             //遍历插入
             for (let i = 0; i < arr.length; i++) {
