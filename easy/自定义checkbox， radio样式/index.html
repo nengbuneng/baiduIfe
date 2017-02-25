@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .container500px {
+            width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            /*background: #909090*/
+        }
+        
+        .cb {
+            display: none;
+        }
+
+
+        .cb+label{
+            display: inline-block;
+            background: #99CC66;
+            touch-action: none;
+            cursor: pointer;
+            border: #666666 1px solid;
+            height: 30px;
+            width: 60px;
+            border-radius:4px;
+            text-align: center;
+            line-height: 30px;
+            user-select: none
+            
+        }
+        
+        .cb:checked ~ {
+            background: red;
+            color: red;
+            /*list-style: image('/img/btn.jpg')*/
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container500px">
+        <input type="checkbox" name="sex" value="man" class="cb" id="man"><label for="man">男</label></br>
+        <input type="checkbox" name="sex" value="woman" class="cb" id="woman"><label for="woman">女</label></br>
+        <p>哈哈哈</p>
+    </div>
+</body>
+
+</html>
+
+http://okwdz16o9.bkt.clouddn.com/blog/20170225/171456455.png
