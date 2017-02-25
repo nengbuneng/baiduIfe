@@ -95,6 +95,7 @@ article, aside {
     margin: 0px;
     padding: 0px;
     display: inline-block;
+    color: #999999;
 }
 #asideForm input[type='submit']{
 

@@ -1,0 +1,41 @@
+div{
+    border:1px #999 solid;
+    margin: 20px;
+    background: white;
+}
+
+.father {width:auto;
+    overflow:hidden;
+
+    margin:20px;
+    background: #eee;
+
+}
+
+.left {
+    width:200px;
+    float:left;
+
+}
+
+.right {
+    width:120px;
+    float:right;
+}
+
+
+/*使用margin空出div部分*/
+.center {margin:0 ;
+    margin-left: 242px;
+    margin-right: 162px;
+    margin-top: 20px;
+}
+
+
+.logo{
+    width: 80px;
+    height: 80px;
+    margin: 20px;
+    float: left;
+    background: #666666;
+}
