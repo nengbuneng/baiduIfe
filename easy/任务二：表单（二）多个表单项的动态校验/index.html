@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务二：表单（二）多个表单项的动态校验</title>
+    <style>
+        .container600px {
+            width: 600px;
+            margin: auto;
+            background: white;
+            padding: 100px;
+            border-radius: 10px;
+        }
+
+        label {
+            width: 150px;
+            display: inline-block;
+            text-align: right;
+            padding-right: 10px;
+            /*font-size: px;*/
+        }
+
+        span {
+            color: #CCCCCC;
+            font-size: 12px;
+            display: inline-block;
+            height: 30px;
+            vertical-align: middle;
+            /*margin: 4px;*/
+        }
+
+        input {
+            border-radius: 6px;
+            height: 28px;
+            font-size: 18px;
+            margin-right: 100px;
+            border: solid 2px #999999;
+            box-shadow: 0 0 2px white;
+            padding: 2px 10px;
+        }
+
+        input:focus {
+            box-shadow: 0 0 2px #0099CC;
+            border: solid 2px #0099CC;
+        }
+
+        #submit {
+            margin-right: 180px;
+            float: right;
+            font-size: 18px;
+            text-align: center;
+            width: 100px;
+            height: 36px;
+            background: #0099CC;
+            border: 1px #0099CC solid;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container600px">
+    <form action="">
+        <label for="name">名称</label>
+        <input type="text" id="name"><br>
+        <label for=""></label>
+        <span id="nameSpan">必填,长度为4~16个字符</span><br>
+
+        <label for="password">密码</label>
+        <input type="password" id="password"><br>
+        <label for=""></label>
+        <span id="passSpan"></span><br>
+
+        <label for="repassword">密码确认</label>
+        <input type="password" id="repassword"><br>
+        <label for=""></label>
+        <span id="repassSpan"></span><br>
+
+        <label for="email">邮箱</label>
+        <input type="text" id="email"><br>
+        <label for=""></label>
+        <span id="emailSpan"></span><br>
+
+
+        <label for="phone">手机</label>
+        <input type="text" id="phone"><br>
+        <label for=""></label>
+        <span id="phoneSpan"></span><br>
+
+        <input type="submit" value="提交" id="submit">
+
+    </form>
+
+
+</div>
+<script>
+
+    window.onload = function () {
+
+
+        //获取所有预先需要获取的元素
+        var name = document.getElementById('name')
+        var password = document.getElementById('password')
+        var repassword = document.getElementById('repassword')
+        var email = document.getElementById('email')
+        var phone = document.getElementById('phone')
+        var submit = document.getElementById('submit')
+
+        //提示标签
+        var nameSpan = document.getElementById('nameSpan')
+        var passSpan = document.getElementById('passSpan')
+        var repassSpan = document.getElementById('repassSpan')
+        var emailSpan = document.getElementById('emailSpan')
+        var phoneSpan = document.getElementById('phoneSpan')
+
+        name.onfocus = function () {
+            name.select()
+//            nameSpan='必填,长度为4~16个字符'
+        }
+
+        name.onblur = function () {
+
+
+            if (name.value) {
+
+                nameSpan.innerHTML = '用户名不为空就对了'
+                name.style.boxShadow = '0 0 2px green'
+                name.style.border = '2px solid green'
+            } else {
+                nameSpan.innerHTML = '用户名不能空!!'
+                name.style.boxShadow = '0 0 2px red'
+                name.style.border = '2px solid red'
+            }
+        }
+
+        password.onblur = function () {
+            if (password.value || repassword.value) {
+                    if (repassword.value == password.value) {
+
+                        password.style.boxShadow = '0 0 2px green'
+                        password.style.border = '2px solid green'
+
+                        repassword.style.boxShadow = '0 0 2px green'
+                        repassword.style.border = '2px solid green'
+
+                        passSpan.innerHTML = '密码可用!!'
+                        passSpan.style.color = 'green'
+
+                        repassSpan.innerHTML = ''
+                    } else {
+                        if(repassword.value){
+                        password.style.boxShadow = '0 0 2px red'
+                        password.style.border = '2px solid red'
+                        repassword.style.boxShadow = '0 0 2px red'
+                        repassword.style.border = '2px solid red'
+                        repassSpan.innerHTML = '两次密码不一样啊,兄弟!!'
+                        passSpan.innerHTML = ''
+                        repassSpan.style.color = 'red'
+                        }
+                    }
+
+            }
+
+        }
+
+
+
+
+        repassword.onblur = function () {
+            if (password.value || repassword.value) {
+                if (repassword.value == password.value) {
+
+                    password.style.boxShadow = '0 0 2px green'
+                    password.style.border = '2px solid green'
+
+                    repassword.style.boxShadow = '0 0 2px green'
+                    repassword.style.border = '2px solid green'
+
+                    passSpan.innerHTML = '密码可用!!'
+                    passSpan.style.color = 'green'
+
+                    repassSpan.innerHTML = ''
+                } else {
+                    if(repassword.value){
+                        password.style.boxShadow = '0 0 2px red'
+                        password.style.border = '2px solid red'
+                        repassword.style.boxShadow = '0 0 2px red'
+                        repassword.style.border = '2px solid red'
+                        repassSpan.innerHTML = '两次密码不一样啊,兄弟!!'
+                        passSpan.innerHTML = ''
+                        repassSpan.style.color = 'red'
+                    }
+                }
+
+            }
+
+        }
+
+
+
+        //regrxp判断email
+        var pattenE=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
+
+        email.onblur=function () {
+            if (pattenE.test(email.value)){
+                email.style.border = '2px solid green'
+                emailSpan.innerHTML = '邮箱可用'
+                emailSpan.style.color='green'
+                email.style.boxShadow = '0 0 2px green'
+            }else {
+                email.style.border = '2px solid red'
+                email.style.boxShadow = '0 0 2px red'
+                emailSpan.style.color='red'
+                emailSpan.innerHTML = '不支持的邮箱格式'
+
+            }
+        }
+
+    //phone regexp
+        var pattenP=/^[0-9]{11}/
+
+        phone.onblur=function () {
+            if (pattenP.test(phone.value)){
+                phone.style.border = '2px solid green'
+                phoneSpan.innerHTML = '手机可用'
+                phoneSpan.style.color='green'
+                phone.style.boxShadow = '0 0 2px green'
+            }else {
+                phone.style.border = '2px solid red'
+                phone.style.boxShadow = '0 0 2px red'
+                phoneSpan.style.color='red'
+                phoneSpan.innerHTML = '不支持的手机号格式'
+
+            }
+        }
+
+
+
+    }
+
+
+</script>
+
+</body>
+</html>
