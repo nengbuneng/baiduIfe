@@ -96,6 +96,8 @@
 
     window.onload = function () {
 
+        //是否可以提交
+        var canSbu=false
 
         //获取所有预先需要获取的元素
         var name = document.getElementById('name')
@@ -125,10 +127,13 @@
                 nameSpan.innerHTML = '用户名不为空就对了'
                 name.style.boxShadow = '0 0 2px green'
                 name.style.border = '2px solid green'
+                canSbu=true
+
             } else {
                 nameSpan.innerHTML = '用户名不能空!!'
                 name.style.boxShadow = '0 0 2px red'
                 name.style.border = '2px solid red'
+                canSbu=false
             }
         }
 
@@ -146,6 +151,8 @@
                         passSpan.style.color = 'green'
 
                         repassSpan.innerHTML = ''
+                        canSbu=true
+
                     } else {
                         if(repassword.value){
                         password.style.boxShadow = '0 0 2px red'
@@ -155,6 +162,7 @@
                         repassSpan.innerHTML = '两次密码不一样啊,兄弟!!'
                         passSpan.innerHTML = ''
                         repassSpan.style.color = 'red'
+                            canSbu=false
                         }
                     }
 
@@ -179,6 +187,8 @@
                     passSpan.style.color = 'green'
 
                     repassSpan.innerHTML = ''
+                    canSbu=true
+
                 } else {
                     if(repassword.value){
                         password.style.boxShadow = '0 0 2px red'
@@ -188,6 +198,7 @@
                         repassSpan.innerHTML = '两次密码不一样啊,兄弟!!'
                         passSpan.innerHTML = ''
                         repassSpan.style.color = 'red'
+                        canSbu=false
                     }
                 }
 
@@ -206,11 +217,14 @@
                 emailSpan.innerHTML = '邮箱可用'
                 emailSpan.style.color='green'
                 email.style.boxShadow = '0 0 2px green'
+                canSbu=true
+
             }else {
                 email.style.border = '2px solid red'
                 email.style.boxShadow = '0 0 2px red'
                 emailSpan.style.color='red'
                 emailSpan.innerHTML = '不支持的邮箱格式'
+                canSbu=false
 
             }
         }
@@ -224,16 +238,26 @@
                 phoneSpan.innerHTML = '手机可用'
                 phoneSpan.style.color='green'
                 phone.style.boxShadow = '0 0 2px green'
+                canSbu=true
+
             }else {
                 phone.style.border = '2px solid red'
                 phone.style.boxShadow = '0 0 2px red'
                 phoneSpan.style.color='red'
                 phoneSpan.innerHTML = '不支持的手机号格式'
+                canSbu=false
 
             }
         }
 
-
+    submit.onclick=function (event) {
+        if (canSbu){
+            alert('提交了')
+        }else {
+            event.preventDefault()
+            alert('哈哈,你有输入错误的')
+        }
+    }
 
     }
 
