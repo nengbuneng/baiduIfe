@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务四：基础JavaScript练习（一）</title>
+    <style>
+
+        input[type='button'] {
+            margin-left: 20px;
+        }
+
+        .container600px {
+            width: 600px;
+            padding: 200px;
+            margin: auto;
+        }
+
+        .container100px {
+            height: 104px;
+            width: auto;
+        }
+
+        .num {
+            width: 80px;
+            height: 80px;
+            background: #CCCCFF;
+            float: left;
+            margin: 10px;
+            box-shadow: 0 0 2px #CCCCFF;
+            text-align: center;
+            line-height: 80px;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="container600px">
+    <input type="text" id="str">
+    <input type="button" value="左侧入" id="leftIn">
+    <input type="button" value="右侧入" id="rightIn">
+    <input type="button" value="左侧出" id="leftOut">
+    <input type="button" value="右侧出" id="rightOut"><br>
+
+    <div class="container100px">
+
+    </div>
+
+</div>
+
+
+<script>
+    window.onload = function () {
+
+        //定义一个数组
+        var arr = []
+
+        //渲染
+        var container = document.getElementsByClassName('container100px')[0]
+
+        function render(arr) {
+            //渲染钱先清空
+            container.innerHTML = ''
+            for (var i = 0; i < arr.length; i++) {
+                var p = document.createElement('p')
+                p.classList = 'num'
+                p.innerHTML = arr[i]
+                container.appendChild(p)
+            }
+        }
+
+
+        var str = document.getElementById('str').value
+
+
+        var leftIn = document.getElementById('leftIn')
+        var rightIn = document.getElementById('rightIn')
+        var leftOut = document.getElementById('leftOut')
+        var rightOut = document.getElementById('rightOut')
+
+        leftIn.onclick = function () {
+            str = document.getElementById('str').value
+            if (str.length < 2)
+                arr.unshift(str)
+            render(arr)
+        }
+        rightIn.onclick = function () {
+            str = document.getElementById('str').value
+            if (str.length < 2) {
+                arr.push(str)
+                render(arr)
+            }
+        }
+        leftOut.onclick = function () {
+            str = document.getElementById('str').value
+
+            if (str.length < 2) {
+                arr.shift()
+                render(arr)
+            }
+        }
+        rightOut.onclick = function () {
+            str = document.getElementById('str').value
+            if (str.length < 2) {
+                arr.pop()
+                render(arr)
+            }
+        }
+
+
+    }
+
+
+</script>
+</body>
+</html>
