@@ -1,0 +1,55 @@
+/*#colorBg{*/
+    /*width: 400px;*/
+    /*height:400px;*/
+    /*background: -webkit-linear-gradient(-45deg, white , black);*/
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left: 0px;*/
+    /*opacity: 1;*/
+/*}*/
+
+
+
+/*红Red, 橙 orange, 黄yellow, 绿 green, 青cyan或者ching 蓝 blue 紫 purple*/
+
+
+#colorShow{
+    width: 400px;
+    height:400px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    /*background: -webkit-linear-gradient(-45deg, white , red,black);*/
+}
+
+#bar{
+    width: 20px;
+    height:400px;
+    position: absolute;
+    top: 0px;
+    left: 410px;
+    background: -webkit-linear-gradient(red,orange,yellow,green,cyan,blue,red);
+}
+
+
+
+#colorPointer{
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    background: white;
+    /*top: 200px;*/
+    /*left: 200px;*/
+    border-radius: 2px;
+}
+
+#barPoint{
+    width: 20px;
+    height: 5px;
+    position: absolute;
+    background: white;
+    top: 10px;
+    /*left: 0px;*/
+    border-radius: 2px;
+}
