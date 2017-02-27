@@ -17,35 +17,39 @@
         }
 
         .streamer {
-            animation: 5s streamerP infinite ;
-            animation-timing-function: linear;
 
             background-image: -webkit-linear-gradient(left, #ff0009 0%, #00ff2f 25%, #001bff 50%, #fffb00 75%, #ff00f8 100%);
             background-size: 200% 100%;
             -webkit-background-clip: text;
 
             color: transparent;
-
             position: absolute;
             font-size: 40px;
             left: 100px;
             top: 50px;;
+            opacity: 0;
 
         }
 
         .twinkle {
-            animation: 2s twinkle infinite ;
+
             position: absolute;
             font-size: 40px;
             left: 220px;
             top: 250px;
             cursor: pointer;
+            opacity: 0;
+
         }
 
         @keyframes streamerP {
 
             0% {
                 background-position: 0 0;
+
+            }
+            1% {
+
             }
             100% {
                 background-position: -100% 0;
@@ -53,13 +57,17 @@
         }
 
         @keyframes twinkle {
-            from, to {
+            from {
                 color: #ff0016;
+
             }
+
             50% {
                 color: #001bff;
             }
-
+            to {
+                color: #ff0016;
+            }
         }
 
         #top, #bottom {
@@ -69,8 +77,7 @@
             left: 26px;
             border-radius: 13px;
             background: #fffc19;
-            animation: 1.5s topDiv forwards;
-            animation-timing-function: linear;
+
         }
 
         #top {
@@ -80,83 +87,113 @@
 
         #bottom {
             bottom: 26px;
-            /*animation:5s topDiv;*/
         }
 
-        #right,#left{
-            animation: 1.5s leftDiv forwards;
-            animation-timing-function: linear;
-            /*animation-play-state: running;*/
-
+        #right, #left {
             height: 0px;
             width: 20px;
             position: absolute;
             top: 26px;
             border-radius: 13px;
             background: #fffc19;
-
         }
 
-        #right{
+        #right {
             right: 26px;
 
         }
 
-        #left{
+        #left {
             left: 26px;
         }
 
-
         @keyframes topDiv {
             from {
-                width:0px;
+                width: 0px;
                 opacity: 0;
                 left: 300px;
             }
             80% {
                 opacity: 1;
             }
-            to{
-                width:546px;
+            to {
+                width: 546px;
                 left: 26px;
             }
         }
 
         @keyframes leftDiv {
             from {
-                height:0px;
+                height: 0px;
                 opacity: 0;
                 top: 200px;
             }
-            30%{
+            30% {
                 opacity: 1;
             }
 
             80% {
                 opacity: 1;
             }
-            to{
-                height:346px;
+            to {
+                height: 346px;
                 top: 26px;
             }
         }
 
-
-        img{
-            animation:1s op forwards;
-
+        .containercontainer:before,
+        .text:after {
+            /*position: absolute;*/
+            content: "";
+            box-sizing: border-box;
+            transition: all 1s;
         }
 
 
-        @keyframes op {
-            from {
-                filter: blur(0px);
-            }
-            to{
-                filter: blur(10px);
-            }
+
+        .container:hover .streamer {
+            animation: 5s streamerP infinite;
+            animation-timing-function: linear;
+            opacity: 1;
         }
 
+        .container:hover .twinkle {
+            animation: 2s twinkle infinite;
+            opacity: 1;
+        }
+
+        .container:hover #top {
+            animation: 1.5s topDiv forwards;
+            animation-timing-function: linear;
+        }
+
+        .container:hover #bottom {
+            animation: 1.5s topDiv forwards;
+            animation-timing-function: linear;
+        }
+
+        .container:hover #left {
+            animation: 1.5s leftDiv forwards;
+            animation-timing-function: linear;
+        }
+
+        .container:hover #right {
+            animation: 1.5s leftDiv forwards;
+            animation-timing-function: linear;
+        }
+
+        .container:hover img {
+            filter: blur(10px);
+            transition:2s;
+        }
+
+        .text{
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
     </style>
 
 
@@ -167,6 +204,10 @@
 <div class="container">
     <img src="img/logo.png" alt="">
     <p class="twinkle">立刻进入</p>
+
+    <div class="text">
+
+    </div>
 
     <p class="streamer">欢迎来到本子娜的世界</p>
     <div id="top"></div>
