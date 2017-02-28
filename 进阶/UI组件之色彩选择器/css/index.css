@@ -1,0 +1,82 @@
+div, body {
+    margin: 0px;
+    padding: 0px;
+
+}
+
+.colorContainer {
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+
+#black {
+    width: 400px;
+    height: 400px;
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    z-index: 3;
+}
+
+#white {
+    width: 400px;
+    height: 400px;
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+
+}
+
+#choosed {
+
+    width: 400px;
+    height: 400px;
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: linear-gradient(to left,white,red);
+    /*background: linear-gradient(to left, white, rgb(255, 46, 0));*/
+}
+
+#bar {
+    width: 20px;
+    height: 400px;
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 420px;
+    background: -webkit-linear-gradient(top, #ff0000, #ffff00 , #00ff00 , #00ffff, #0000ff , #ff00ff, #ff0000);
+
+}
+
+#barPointer {
+    width: 20px;
+    height: 5px;
+    border-radius: 2px;
+    background: white;
+    position: absolute;
+    /*top: 10px;*/
+    left: 0px;
+}
+
+#colorPointer {
+    width: 5px;
+    height: 5px;
+    border-radius: 2px;
+    background: white;
+    position: absolute;
+    top: 200px;
+    left: 300px;
+    z-index: 6;
+}
+
+input{
+    display: inline-block;
+    width: 50px;
+}
