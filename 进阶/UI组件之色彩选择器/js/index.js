@@ -22,7 +22,7 @@ var black=document.getElementById('black')
     var barH=barPointer.style.top
 
 function arrToBack(arr) {
-    return 'linear-gradient(to left, white,rgb('+parseFloat(arr[0])+','+parseFloat(arr[1])+','+parseFloat(arr[2]) +'))'
+    return 'linear-gradient(to left, white,rgb('+parseInt(arr[0])+','+parseInt(arr[1])+','+parseInt(arr[2]) +'))'
 
 }
 
@@ -147,7 +147,7 @@ bar.onclick=function (event) {
     var rgb= getBarColor()
 
 
-    // console.log('switch之后的rgb:'+rgb)
+    console.log('switch之后的rgb:'+rgb)
 
     //改变colorShow区域 的颜色
     choosed.style.background=arrToBack(rgb)

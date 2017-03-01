@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无限滚动效果</title>
+</head>
+<body>
+
+
+<script>
+
+
+    var i = 0
+
+
+    //console.log(body)
+    function addItem(event) {
+
+
+            var height = document.body.offsetHeight
+            var mouseInPageY = event.pageY
+
+            while (mouseInPageY > height) {
+                console.log(h)
+
+                var body = document.body
+
+                var item = document.createElement('p')
+                item.innerHTML = i
+                i++
+                body.appendChild(item)
+            }
+
+
+    }
+    document.body.addEventListener("DOMMouseScroll", function(event) {
+//        addItem(event)
+        console.log('hha')
+    })
+</script>
+</body>
+</html>
