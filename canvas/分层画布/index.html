@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分层画布</title>
+    <style>
+        body,div{
+            margin: 0px;
+            padding: 0px;
+        }
+        .container1000px{
+            width: 1004px;
+            height: 600px;
+            display: flex;
+        }
+        #canvas{
+            width: 600px;
+            height: 600px;
+            border: 1px black solid;
+        }
+        #list{
+            width: 300px;
+            height: 600px;
+            overflow: scroll;
+        }
+        #setColor{
+            width: 100px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container1000px">
+    <canvas id="canvas"></canvas>
+    <div id="list">
+        <ul id="painterList">
+
+        </ul>
+    </div>
+
+    <div id="setColor">
+        <p>css接受的16进制或RGB</p>
+        <label for="bgColor">背景色</label>
+        <input type="text" id="bgColor">
+
+        <label for="ptColor">画笔颜色</label>
+        <input type="text" id="ptColor">
+
+        <label for="ptWidth">画笔宽</label>
+        <input type="text" id="ptWidth">
+
+    </div>
+
+
+</div>
+
+
+<script src="js/index.js"></script>
+</body>
+</html>
