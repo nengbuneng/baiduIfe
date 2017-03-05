@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>虚拟画笔</title>
+
+    <style>
+        .container {
+            width: 904px;
+            display: flex;
+
+        }
+
+        #canvas {
+            height: 600px;
+            width: 600px;
+            border: 1px black solid;
+            position: relative;
+            /*background: #66ccff;*/
+        }
+
+        #tools {
+            width: 300px;
+            border: 1px black solid;
+        }
+
+        #eraserArcBorder {
+            position: absolute;
+            border: 2px black solid;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background: red;
+            z-index: -1;
+
+            visibility: hidden;
+        }
+
+        #eraserRectBorder {
+            position: absolute;
+            border: 2px black solid;
+            width: 10px;
+            height: 10px;
+            z-index: -1;
+            background: red;
+            visibility: hidden;
+
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="eraserArcBorder">
+
+    </div>
+    <div id="eraserRectBorder">
+
+    </div>
+
+    <canvas id="canvas">
+
+
+    </canvas>
+    <div id="tools">
+        <label for="eraser">橡皮</label>
+        <input type="radio" id="eraser" name="tools">
+        <label for="eraser">方形橡皮</label>
+        <input type="radio" id="eraserRect" name="eraser">
+        <label for="eraser">圆形橡皮</label>
+        <input type="radio" id="eraserArc" name="eraser">
+        <br>
+        <br>
+        <label for="brush">刷子</label>
+        <input type="radio" id="brush" name="tools">
+        <!--<input type="number" value="默认">-->
+
+        <br><br>
+        <label for="spray">喷枪</label>
+        <input type="radio" id="spray" name="tools">
+
+    </div>
+</div>
+<script src="src/index.js">
+
+</script>
+</body>
+</html>
