@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现一个自动无线循环轮播</title>
+    <style>
+        #container {
+            width: 800px;
+            height: 200px;
+            background: #CCCCCC;
+            position: relative;
+            overflow: hidden;
+            padding: 0px;
+        }
+
+        #container li {
+            position: absolute;
+            padding: 0px;
+            list-style: none;
+            margin: 0px;
+            width: 800px;
+            height: 200px;
+            top: 0px;
+            left: 0px;
+        }
+
+        .run {
+            animation: run 3s i;
+        }
+    </style>
+</head>
+<body>
+
+<ul id="container">
+
+</ul>
+
+<script>
+
+
+    v = 7
+    canRun = 1
+    var imgSrc = [1, 2, 3, 4, 5]
+
+    var liArr = []
+
+    var color = ['red', 'yellow', 'blue', 'gray', 'green']
+
+    window.onload = function () {
+        var container = document.getElementById('container')
+
+        function createAd(imgSrc) {
+
+
+            for (var i = 0; i < imgSrc.length; i++) {
+                var temp = i
+                var li = document.createElement('li')
+                li.style.background = color[temp]
+                liArr.push(li)
+                container.appendChild(li)
+
+            }
+
+
+        }
+
+
+        createAd(imgSrc)
+        console.log(liArr)
+
+
+        function run() {
+            console.log("1")
+
+            for (var i = 0; i < liArr.length; i++) {
+                liArr[i].style.left = -800 * i + 'px'
+            }
+
+            var oneL = parseInt(liArr[0].style.left)
+            var twoL = parseInt(liArr[1].style.left)
+
+            var runTwo = setInterval(function () {
+
+                if (parseInt(liArr[1].style.left) > 0) {
+                    console.log(canRun)
+                    if (canRun) {
+
+                        liArr[liArr.length] = liArr[0]
+                        liArr.shift()
+
+                        for (var i = 0; i < liArr.length; i++) {
+                            liArr[i].style.left = -800 * i + 'px'
+                        }
+
+
+                        clearInterval(runTwo)
+                    }
+                } else {
+
+                    liArr[0].style.left = parseInt(liArr[0].style.left) + v + 'px'
+                    liArr[1].style.left = parseInt(liArr[1].style.left) + v + 'px'
+
+
+                }
+            }, 10)
+
+
+        }
+
+
+        var runMain = setInterval(run, 3000)
+
+
+        container.onmousemove = function () {
+            canRun = 0
+            clearInterval(runMain)
+        }
+        container.onmouseout = function () {
+            canRun = 1
+            var runMain = setInterval(run, 3000)
+        }
+
+
+    }
+
+
+</script>
+</body>
+</html>

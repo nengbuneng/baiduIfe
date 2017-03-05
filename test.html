@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul id="showUl"></ul>
+
+<script>
+    dataList=[1,2,3,4]
+
+    function show(dataList) {
+        var uls = document.getElementById('showUl');
+        var text = '';
+        for (var i = 0; i < dataList.length; i++) {
+            text += '<li>' + dataList[i] + '</li>';
+        }
+        uls.innerHTML = text;
+    }
+    show(dataList)
+</script>
+</body>
+</html>

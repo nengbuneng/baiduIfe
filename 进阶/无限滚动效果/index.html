@@ -1,42 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>无限滚动效果</title>
+    <title>Document</title>
+    <style>
+        /*body {*/
+        /*height: 100%;*/
+        /*background: #CCCCCC;*/
+        /*}*/
+
+        /*#absolute {*/
+        /*width: 10px;*/
+        /*height: 10px;*/
+        /*position: absolute;*/
+        /*bottom: 0px;*/
+        /*background: #0000ff;*/
+        /*}*/
+
+        /*#fixed {*/
+        /*width: 10px;*/
+        /*height: 10px;*/
+        /*position: fixed;*/
+        /*bottom: 0px;*/
+        /*right: 0px;*/
+        /*background: #66ccff;*/
+        /*}*/
+    </style>
 </head>
 <body>
 
+<ul id="ul">
 
+</ul>
 <script>
 
+    window.onload = function () {
+        i = 0
+        function scrollFunc() {
+            var screenH = parseInt(document.body.clientHeight)
+            var pageH = parseInt(document.body.scrollHeight)
+            var scrollH =document.body.scrollTop
+            var ul = document.getElementById('ul')
 
-    var i = 0
+            var li=document.createElement('li')
+            li.appendChild(document.createTextNode(i))
+            ul.appendChild(li)
+
+//            console.log(body)
+            console.log(screenH, pageH, scrollH)
+            addH = 100
+
+            console.log((pageH - screenH - scrollH) > addH)
+
+//            while ((pageH - screenH - scrollH) > addH) {
+//                var li=document.createElement('li')
+//                li.appendChild(document.createTextNode(i))
+//                ul.appendChild(li)
+//                console.log(i)
+//                i++
+//
+//            }
 
 
-    //console.log(body)
-    function addItem(event) {
+        }
 
 
-            var height = document.body.offsetHeight
-            var mouseInPageY = event.pageY
-
-            while (mouseInPageY > height) {
-                console.log(h)
-
-                var body = document.body
-
-                var item = document.createElement('p')
-                item.innerHTML = i
-                i++
-                body.appendChild(item)
-            }
+        /*注册事件*/
+        if (document.addEventListener) {
+            document.addEventListener('DOMMouseScroll', scrollFunc, false);
+        }//W3C
+        window.onmousewheel = document.onmousewheel = scrollFunc;//IE/Opera/Chrome
 
 
     }
-    document.body.addEventListener("DOMMouseScroll", function(event) {
-//        addItem(event)
-        console.log('hha')
-    })
+
+
 </script>
 </body>
 </html>
+
+
