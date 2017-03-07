@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebGL No.1 - Three.js 入门</title>
+    <link rel="stylesheet" href="../../public/css/container.css">
+    <script src="//cdn.bootcss.com/three.js/r83/three.min.js"></script>
+</head>
+<body>
+
+<div class="container86">
+<canvas  id="canvas" style="width: 100% ;height:100%"></canvas>
+</div>
+
+<script>
+    (function () {
+
+        // renderer
+        var renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('canvas'),
+            antialias: true,   //  开启消除锯齿,默认false
+//            precision: "highp"   // 渲染精度  highp/mediump/lowp
+        });
+
+        renderer.setClearColor(0xCCCCCC); // black
+
+
+
+        // scene
+        var scene = new THREE.Scene();
+
+        var light = new THREE.DirectionalLight(0xffffff, 2, 100);
+        light.position.set(7, 7, 7);
+        scene.add(light);
+
+
+        // camera
+        var camera = new THREE.PerspectiveCamera(80, 400 / 300, 1, 100);
+        camera.position.set(40,0,0);
+        camera.lookAt(new THREE.Vector3(0,0,0));
+        scene.add(camera);
+
+        // a cube in the scene
+        var cubeTop = new THREE.Mesh(new THREE.SphereGeometry(3, 8, 6),
+            new THREE.MeshPhongMaterial({
+                color: 0x000000
+            })
+        );
+        cubeTop.position.set(4,5, 0,0 );
+        var cubebottom = new THREE.Mesh(new THREE.SphereGeometry(3, 8, 6),
+            new THREE.MeshPhongMaterial({
+                color: 0x000000
+            })
+        );
+
+
+
+//        var color=['']
+//        for()
+
+
+        scene.add(cubeTop);
+        scene.add(cubebottom);
+
+
+        // render
+        renderer.render(scene, camera);
+
+
+
+
+
+
+
+    })()
+
+
+</script>
+</body>
+</html>

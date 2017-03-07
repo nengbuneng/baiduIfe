@@ -1,0 +1,38 @@
+body,div{
+    margin: 0px;
+    padding: 0px;
+}
+
+a{
+    text-decoration: none;
+}
+
+li{
+    list-style: none;
+}
+
+.container86{
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    margin-top: -300px;
+    margin-left: -400px;
+    background: #eeeeee;
+    box-shadow: #666666 2px 2px 10px;
+    border-radius: 4px;
+}
+
+.container1210{
+    width: 1200px;
+    height: 1000px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    margin-top: -300px;
+    margin-left: -400px;
+    background: #eeeeee;
+    box-shadow: #666666 2px 2px 10px;
+    border-radius: 4px;
+}

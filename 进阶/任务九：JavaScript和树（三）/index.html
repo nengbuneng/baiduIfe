@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现树形组件</title>
+
+
+    <style>
+        .container {
+            padding: 0px;
+        }
+
+        li {
+            list-style: none;
+
+        }
+
+        .itemSpan {
+            text-decoration: none;
+            width: 100px;
+            border: #CCCCCC 1px solid;
+            cursor: pointer;
+            background: #CCCCCC;
+            border-radius: 4px;
+            box-shadow: #CCCCCC 0 0 2px;
+        }
+        .itemSpan:hover{
+            background: #eeeeee;
+            box-shadow: lime 0 0 2px;
+        }
+
+        .hidden ul {
+            width: 0px;
+            height: 0px;
+            display: none;
+
+            /*list-style-image: url("img/opened.png");*/
+        }
+
+        #menu {
+            position: absolute;
+            visibility: hidden;
+        }
+
+
+
+        #menu ul li {
+            width: 80px;
+            background: limegreen;
+            border: lightgreen 1px solid;
+            box-shadow: inset 0 0 3px #00ff2f;
+            text-align: center;
+            cursor: pointer;
+
+        }
+
+        #menu ul li:nth-child(1) {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+
+        }
+
+        #menu ul li:nth-last-child(1) {
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+
+        }
+
+        #file {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div id="menu">
+        <ul>
+            <li>删除</li>
+            <li>添加</li>
+            <li>你瞅啥</li>
+        </ul>
+    </div>
+</div>
+
+
+<script>
+
+    //递归
+    function show(arr, fatherUl) {
+var temp=1
+        for (let i = 0; i < arr.length; i++) {
+//            console.log('取得的arr项目为:第' + i + '项:' + (!!arr[i].chirldren ))
+
+
+            if (arr[i].children) {
+
+//                father(arr[i]['name'])
+                let li = document.createElement('li')
+//                li.name='file'
+              li.id=temp
+                temp++
+//                console.log(li.name)
+                let span = document.createElement('span')
+                span.appendChild(document.createTextNode(arr[i]['name']))
+                span.className = 'itemSpan'
+                li.appendChild(span)
+                fatherUl.appendChild(li)
+                let ul = document.createElement('ul')
+
+
+//                console.log('递归传入的参数'+arr[i].children)
+                ul = show(arr[i].children, ul)
+//                console.log('递归'+ul.innerHTML)
+                li.appendChild(ul)
+
+            } else {
+
+//                children(arr[i]['name'])
+                let li = document.createElement('li')
+                let span = document.createElement('span')
+                span.appendChild(document.createTextNode(arr[i]['name']))
+                span.className = 'itemSpan'
+                li.appendChild(span)
+                fatherUl.appendChild(li)
+
+
+            }
+//            console.log('第' + i + '循环结束,内容为' + ul.innerHTML)
+        }
+        return fatherUl
+    }
+
+    //添加点击效果
+    function addSwitch() {
+        var li = document.getElementById('tree').getElementsByTagName('li')
+        var menu = document.getElementById('menu')
+var liIndex=1
+
+        console.log(li)
+        for (let i = 0; i < li.length; i++) {
+
+            var temp = i
+            li[temp].onclick = function (event) {
+
+
+                event.stopPropagation()
+
+
+//                console.log(li[i])
+                if (li[i].className == 'hidden') {
+                    li[i].className = ''
+                } else {
+                    li[i].className = 'hidden'
+                }
+
+
+            }
+
+            li[temp].oncontextmenu = function (event) {
+                event.preventDefault()
+                var tree=document.getElementById('tree')
+                var mouseX = event.clientX - tree.getBoundingClientRect().left
+                var mouseY = event.clientY-tree.getBoundingClientRect().top
+
+console.log(li[temp].id)
+                menu.style.left = mouseX + 'px'
+                menu.style.top = mouseY + 'px'
+                menu.style.visibility='visible'
+
+            }
+
+
+        }
+
+
+
+        menu.onclick=function (event) {
+            event.stopPropagation()
+
+        }
+
+        var body=document.getElementsByTagName('body')[0]
+
+
+        body.onclick=function (event) {
+            console.log('jhaha')
+            menu.style.visibility='hidden'
+        }
+
+    }
+
+
+    var nodes = [
+        {name: "父节点1", children: [{name: "子节点1"}, {name: "子节点2"}]},
+        {
+            name: "父节点2",
+            children: [{name: "子节点3"}, {
+                name: "父节点2",
+                children: [{name: "子节点3"}, {name: "子节点4", children: [{name: "子节点5"}]}]
+            }, {name: "父节点2", children: [{name: "子节点3"}, {name: "子节点4", children: [{name: "子节点5"}]}]}, {
+                name: "子节点4",
+                children: [{name: "子节点5"}]
+            }]
+        }
+    ];
+
+
+    var ul = document.createElement('ul')
+    ul.id = 'tree'
+    ul = show(nodes, ul)
+    var container = document.getElementsByClassName('container')[0]
+    container.appendChild(ul)
+
+
+    addSwitch()
+</script>
+</body>
+</html>
