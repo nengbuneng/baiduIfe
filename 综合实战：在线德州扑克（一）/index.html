@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charse5="UTF-8">
+    <title>综合实战：在线德州扑克（一）</title>
+</head>
+
+<body>
+
+<p>
+    请输入7个数字以英文逗号分隔，数字范围是1-52，对应下表中的牌
+</p>
+<label for="val1"></label>
+<input type="text" id="val1">
+
+<label for="val2"></label>
+<input type="text" id="val2">
+
+<input type="button" value="比较" id="compare">
+
+
+
+<p>
+
+    没做输入的检测，控制台可以查看打印的信息。
+</p>
+
+<div id="des">
+    1：方片A &nbsp; 2：梅花A &nbsp; 3：红桃A &nbsp; 4：黑桃A <br>
+    5：方片2 &nbsp; 6：梅花2 &nbsp; 7：红桃2 &nbsp; 8：黑桃2<br>
+    9：方片3 &nbsp; 10：梅花3 &nbsp; 11：红桃3 &nbsp; 12：黑桃3<br>
+    13：方片4 &nbsp; 14：梅花4 &nbsp; 16：红桃4 &nbsp; 16：黑桃4<br>
+    17：方片5 &nbsp; 18：梅花5 &nbsp; 19：红桃5 &nbsp; 20：黑桃5<br>
+    21：方片6 &nbsp; 22：梅花6 &nbsp; 33：红桃6 &nbsp; 24：黑桃6<br>
+    25：方片7 &nbsp; 26：梅花7 &nbsp; 27：红桃7 &nbsp; 28：黑桃7<br>
+    29：方片8 &nbsp; 30：梅花8 &nbsp; 31：红桃8 &nbsp; 32：黑桃8<br>
+    33：方片9 &nbsp; 34：梅花9 &nbsp; 35：红桃9 &nbsp;36：黑桃9<br>
+    37：方片10 &nbsp; 38：梅花10 &nbsp; 38：红桃10 &nbsp;40：黑桃10<br>
+    41：方片j &nbsp; 42：梅花j &nbsp; 43：红桃j &nbsp;44：黑桃j<br>
+    45：方片q &nbsp; 46：梅花q &nbsp; 47：红桃q &nbsp;48：黑桃q<br>
+    49：方片k &nbsp;50：梅花k &nbsp; 51：红桃k &nbsp; 52：黑桃k<br>
+
+
+</div>
+
+<p>
+
+
+</p>
+<script>
+    //思路
+//    使用52个数字表示每一张牌，定义字典用来转换。
+//    判断过程
+//    先将7张牌降序排序，然后依次用后一个数减前一个数，得到一个差
+//    判断这个差从而判断是什么牌型
+//    例如，如果差 连续两次出现0，那么表示有三张相同大小的牌出现，可能是三条或者是三条＋一个对子
+//    如果连续出现4个－1（中间允许出现0，表示相同的牌），那么这样，就是个顺子。
+//    同时记住了0或－1出现的位置，一般记录在index中
+//
+//    然后依次从最大的同花，四条，开始判断。判断出来以后直接return
+
+//    然后每个牌组都对应一个字符串，以后转为16进制，进行比较
+//
+//    字符串规则：
+//    1.是一个7位的
+//    2.第一位表示牌组，同花顺为8，四条为7，依次往下
+//    3.第三位表示
+//        如果是同花顺，顺子：表示顺子最大的一张牌，因为记住这张就行了
+//        如果是对子类的，比如四条，三条：表示有四张，或者三张的牌的大小，如果有必要，后面还会再跟几位
+//            比如是三条：那么第二位表示三张一样的牌是什么，第三位，表示除了这三张牌以外，剩下的七张牌最大的两张依次跟在后面
+//                例如 JJJA2349:3be9
+//    4.如果剩下的位数不足7，那么用0补全
+//
+//    5.如果同花：那么第一个是5，第二到六位分别是，这七张牌中最大的5张降序排列，然后第七位最后以为表示颜色
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var val1 = document.getElementById('val1')
+    var val2 = document.getElementById('val2')
+
+    var btn = document.getElementById('compare')
+    var des = document.getElementById('des')
+
+    var body=document.getElementsByTagName('body')[0]
+
+
+    btn.onclick = function () {
+        var str1 = val1.value
+        var arr1 = getArra(str1)
+
+        body.appendChild(document.createTextNode('第一个输入框中，产生的type为：'+getType(arr1)))
+
+
+        var type1 = parseInt(getType(arr1), 16)
+
+        var str2 = val2.value
+        var arr2 = getArra(str2)
+        var type2 = parseInt(getType(arr2), 16)
+
+
+        console.log("最终的type   " + type1 + '  ' + type2)
+    }
+
+
+    str = '1,2,3,4,5,7,7'
+    function getArra(str) {
+
+        var strs = new Array(); //定义一数组
+
+        strs = str.split(","); //字符分割
+        for (var i = 0; i < strs.length; i++) {
+            strs[i] = parseInt(strs[i])
+        }
+        return strs
+    }
+
+
+    //获得type的方法
+    function getType(arr) {
+
+        var card = turnNum(arr)
+
+        var type = recongnition(card)
+        return type
+
+    }
+
+
+    //转换为数字,并排序
+    function turnNum(ori) {
+        //--------------
+        console.log('turnNum传入的参数' + ori + ' 长度' + ori.length)
+
+// 1方片 2草花 3红桃 4黑桃
+        var transform_card = {
+            '1': [14, 1], '2': [14, 2], '3': [14, 3], '4': [14, 4],//A
+            '5': [2, 1], '6': [2, 2], '7': [2, 3], '8': [2, 4],//2
+            '9': [3, 1], '10': [3, 2], '11': [3, 3], '12': [3, 4],//3
+            '13': [4, 1], '14': [4, 2], '15': [4, 3], '16': [4, 4],//4
+            '17': [5, 1], '18': [5, 2], '19': [5, 3], '20': [5, 4],//5
+            '21': [6, 1], '22': [6, 2], '23': [6, 3], '24': [6, 4],//6
+            '25': [7, 1], '26': [7, 2], '27': [7, 3], '28': [7, 4],//7
+            '29': [8, 1], '30': [8, 2], '31': [8, 3], '32': [8, 4],//8
+            '33': [9, 1], '34': [9, 2], '35': [9, 3], '36': [9, 4],//9
+            '37': [10, 1], '38': [10, 2], '39': [10, 3], '40': [10, 4],//10
+            '41': [11, 1], '42': [11, 2], '43': [11, 3], '44': [11, 4],//J
+            '45': [12, 1], '46': [12, 2], '47': [12, 3], '48': [12, 4],//Q
+            '49': [13, 1], '50': [13, 2], '51': [13, 3], '52': [13, 4]//K
+        }
+
+
+        let card = {
+            num: [],
+            color: []
+        }
+        for (let i = 0; i < ori.length; i++) {
+            card.num.push(transform_card[ori[i]][0])
+            card.color.push(transform_card[ori[i]][1])
+        }
+
+
+        massageNum = ''
+        massageCol = ''
+        for (let i = 0; i < card.num.length; i++) {
+            massageNum += card.num[i] + ' '
+            massageCol += card.color[i] + ' '
+
+        }
+        console.log('转换前的拍组为：' + massageNum + "  对应颜色为：" + massageCol)
+
+
+        //降序排序
+
+
+        for (var i = 0; i < card.num.length - 1; i++) {
+            for (var j = i + 1; j < card.num.length; j++) {
+                if (card.num[i] < card.num[j]) {
+                    var tempNum = card.num[i];
+                    var tempCol = card.color[i];
+
+                    card.num[i] = card.num[j];
+                    card.color[i] = card.color[j];
+
+
+                    card.num[j] = tempNum;
+                    card.color[j] = tempCol;
+
+                }
+            }
+        }
+
+        //如果第一个是A,那么最后一位也加一个A，但数值为1
+        if (card.num[0] == 14) {
+            card.num.push(1)
+            card.color.push(card.color[0])
+        }
+
+
+        //    --------------------------------------------------------------------
+        massageNum = ''
+        massageCol = ''
+        for (let i = 0; i < card.num.length; i++) {
+            massageNum += card.num[i] + ' '
+            massageCol += card.color[i] + ' '
+
+        }
+        console.log('转换后的拍组为：' + massageNum + "  对应颜色为：" + massageCol)
+
+        return card
+    }
+
+
+    //相减
+    function recongnition(card) {
+
+        var tansform_10to16 = {
+            '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6',
+            '7': '7', '8': '8', '9': '9',
+            '10': 'a', '11': 'b', '12': 'c', '13': 'd', '14': 'e',
+        }
+
+        //判断牌型，记录为一个6位数字，
+        //从十万位，开始依次为987..对应10中不同的大小
+        var type = ''
+
+
+        let time_0 = 0
+
+        //记录对子出现的次数
+        var one = {
+            time: 0,
+            index: []
+        }
+        var two = {
+            time: 0,
+            index: []
+        }
+        var three = {
+            time: 0,
+            index: []
+        }
+
+        //记录1出现的次数
+        var time_1 = 0
+        var time_1_index = 0
+        for (let i = 0; i < card.num.length; i++) {
+            var Dvalue = card.num[i + 1] - card.num[i]
+
+            if (Dvalue == 0) {
+                time_0++
+            }
+
+
+            if (!Dvalue == 0 || i == card.num.length - 1) {
+
+
+                //判断出现了几次对子，什么样的对子
+                switch (time_0) {
+                    case 1: {
+                        one.time++
+                        one.index.push(i - 1)
+                        one.index.push(i)
+                        //--------------
+//                        console.log('两张出现的位置 ' + one.index[0])
+                        break
+                    }
+                        ;
+                    case 2: {
+                        two.time++
+                        two.index.push(i)
+
+                        //--------------
+//                        console.log('三张相同出现的位置数字 ' + card.num[two.index[0]])
+                        break
+                    }
+                        ;
+                    case 3: {
+                        three.time++
+                        three.index.push(i)
+
+                        //--------------
+//                        console.log('四张相同出现的位置 ' + three.index[0])／
+                        break
+                    }
+                }
+                time_0 = 0
+            }
+
+
+            //判断是不是顺子
+            if (Dvalue == -1) {
+
+                time_1++
+                if (time_1_index = 0) {
+                    time_1_index = i
+                }
+
+
+            } else {
+                if (!Dvalue == 0 && time_1 < 4) {
+                    time_1 = 0
+                    time_1_index = 0
+                }
+
+
+            }
+
+        }
+
+        var isColor = {
+            equal: false,
+            time: 0,
+            index: [],
+            style: 0,
+        }
+        //判断花色
+        for (var j = 1; j <= 4; j++) {
+            isColor.style = j
+            for (var i = 0; i < card.color.length; i++) {
+                if ((card.color[i] - j) == 0) {
+                    isColor.time++
+                    isColor.index.push(i)
+                }
+            }
+            if (isColor.time >= 5) {
+                isColor.equal = true
+                break
+            }
+            isColor.time = 0
+            isColor.index = []
+        }
+
+        console.log("花色情况：相同花色出现次数" + isColor.time + '  相同颜色编号' + isColor.style + '  出现位置：' + isColor.index)
+
+        //--------------------------------------------------------------------
+        console.log('对子出现的情况：两张相同' + one.time + '  三张相同：' + two.time + ' 四张相同：' + three.time)
+
+        //--------------------------------------------------------------------
+        console.log('顺子出现情况：' + (time_1 > 4 ) + '位置数字：' + time_1_index)
+
+
+        //判断牌型
+        // 高牌0
+        // 一对1
+        // 两对2
+        // 三条3
+        // 顺子4
+        // 同花5
+        // 三条+一对 6
+        // 四条7
+        // 同花顺8
+
+
+        //同花顺
+        if (time_1 >= 4 && isColor.equal == true) {
+
+            type = '8'
+            //记录顺子最小的那个,+1是因为，time_1_index取得是后位-前位
+            type += tansform_10to16[card.num[time_1_index + 1]] + isColor.style + '0000'
+            //---------------------------------------------------------------
+            console.log('同花顺：' + type)
+
+            return type
+        }
+
+
+        //有对子
+        // 四条7
+        if (three.time == 1) {
+            type = '7' + tansform_10to16[card.num[three.index[0]]]
+
+            for (let i = 0; i < card.num.length; i++) {
+                if (i != three.index[0]) {
+                    type += tansform_10to16[card.num[i]] + '0000'
+                    break
+                }
+            }
+
+            //---------------------------------------------------------------
+            console.log('四条：' + type)
+            return type
+        }
+
+        //三条一对
+        if (two.time >= 1 && one.time >= 1) {
+            type = '6' + tansform_10to16[card.num[two.index[0]]]
+
+
+            type += tansform_10to16[card.num[one.index[0]]] + '0000'
+
+
+            //---------------------------------------------------------------
+            console.log('三条一对：' + type)
+            return type
+        }
+
+
+        //同花
+        if (isColor.equal == true) {
+
+            type = '5'
+
+
+            for (var i = 0; i < isColor.index.length; i++) {
+                type += tansform_10to16[card.num[isColor.index[i]]]
+            }
+
+            type += isColor.style
+            //---------------------------------------------------------------
+            console.log('同花：' + type)
+
+            return type
+        }
+
+
+        //顺子
+        if (time_1 >= 4) {
+
+            type = '4'
+            for (var i = 0; i < 7; i++) {
+                type += tansform_10to16[card.num[i]]
+            }
+
+            //---------------------------------------------------------------
+            console.log('顺子：' + type)
+
+            return type
+        }
+
+        //三条
+        if (two.time == 1) {
+            type = '3' + tansform_10to16[card.num[two.index[0]]]
+            for (let i = 0; i < card.num.length; i++) {
+                if (i != two.index[0]) {
+                    if (i == 2) {
+                        type += '000'
+                        break
+                    } else {
+                        type += tansform_10to16[card.num[i]]
+                    }
+
+                }
+            }
+
+            //---------------------------------------------------------------
+            console.log('三条：' + type)
+            return type
+        }
+
+        //两对
+        if (three.time == 0 && two.time == 0 && one.time > 1) {
+
+            type = '2' + tansform_10to16[card.num[one.index[0]]] + tansform_10to16[card.num[one.index[2]]]
+            for (let i = 0; i < card.num.length; i++) {
+                if (i != one.index[0] && i != one.index[1] && i != one.index[2] && i != one.index[3]) {
+                    type += tansform_10to16[card.num[i]] + '000'
+                    break
+                }
+            }
+            //---------------------------------------------------------------
+            console.log('两对：' + type)
+            return type
+        }
+
+        //一对
+        if (three.time == 0 && two.time == 0 && one.time == 1) {
+            type = '1' + tansform_10to16[card.num[one.index[0]]]
+            for (let i = 0; i < card.num.length; i++) {
+                if (i != one.index[0]) {
+                    if (type.length < 7) {
+
+                        type += tansform_10to16[card.num[i]]
+                    } else {
+
+                    }
+
+                }
+            }
+            //---------------------------------------------------------------
+            console.log('一对对：' + type)
+            return type
+        }
+
+
+        //高牌
+        if (three.time == 0 && two.time == 0 && one.time == 0) {
+            for (let i = 0; i < 4; i++) {
+                type += '' + tansform_10to16[card.num[i]]
+            }
+            type += '00'
+        }
+
+        //---------------------------------------------------------------
+        console.log('高牌：' + type)
+
+        return type
+    }
+
+
+    // console.log(type)
+</script>
+</body>
+
+</html>
