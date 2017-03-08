@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f79dc410-f4b9-46b8-880b-44bdf027a515" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/综合实战：在线德州扑克（一）/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.html" afterPath="$PROJECT_DIR$/test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/three.js/WebGL No.1 - Three.js 入门/index.html" afterPath="$PROJECT_DIR$/three.js/WebGL No.1 - Three.js 入门/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/综合实战：在线德州扑克（一）/index.html" afterPath="$PROJECT_DIR$/综合实战：在线德州扑克（一）/index.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,8 +44,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/综合实战：在线德州扑克（一）/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="25" lean-forward="false" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+            <state relative-caret-position="760">
+              <caret line="501" column="13" lean-forward="false" selection-start-line="501" selection-start-column="13" selection-end-line="501" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -594,12 +592,12 @@
       <workItem from="1488844927405" duration="4158000" />
       <workItem from="1488877710347" duration="6070000" />
       <workItem from="1488944482620" duration="8602000" />
-      <workItem from="1488961770980" duration="1782000" />
+      <workItem from="1488961770980" duration="1961000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20977000" />
+    <option name="totallyTimeSpent" value="21156000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -746,8 +744,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/综合实战：在线德州扑克（一）/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="25" lean-forward="false" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        <state relative-caret-position="760">
+          <caret line="501" column="13" lean-forward="false" selection-start-line="501" selection-start-column="13" selection-end-line="501" selection-end-column="13" />
           <folding />
         </state>
       </provider>

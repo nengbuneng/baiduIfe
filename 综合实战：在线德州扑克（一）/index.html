@@ -490,17 +490,16 @@
                 }
             }
             //---------------------------------------------------------------
-            console.log('一对对：' + type)
+            console.log('一对：' + type)
             return type
         }
 
 
         //高牌
         if (three.time == 0 && two.time == 0 && one.time == 0) {
-            for (let i = 0; i < 4; i++) {
-                type += '' + tansform_10to16[card.num[i]]
+            for (let i = 0; type.length <=7; i++) {
+                type += '0' + tansform_10to16[card.num[i]]
             }
-            type += '00'
         }
 
         //---------------------------------------------------------------
